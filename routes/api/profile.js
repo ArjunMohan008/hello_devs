@@ -13,7 +13,7 @@ router.get('/me', auth, async (req, res) => {
   try {
     const profile = await Profile.findOne({
       user: req.user.id
-    }).populate('user', ['name', 'avatar']);
+    }).populate('User', ['name', 'avatar']);
 
     if (!profile) {
       return res.status(400).json({ msg: 'There is no profile for this user' });
@@ -77,11 +77,11 @@ router.post(
 
     // Build social object
     profileFields.social = {};
-    if (youtube) profileFields.youtube = youtube;
-    if (twitter) profileFields.twitter = twitter;
-    if (facebook) profileFields.facebook = facebook;
-    if (linkedin) profileFields.linkedin = linkedin;
-    if (instagram) profileFields.instagram = instagram;
+    if (youtube) profileFields.social.youtube = youtube;
+    if (twitter) profileFields.social.twitter = twitter;
+    if (facebook) profileFields.social.facebook = facebook;
+    if (linkedin) profileFields.social.linkedin = linkedin;
+    if (instagram) profileFields.social.instagram = instagram;
 
     try {
       let profile = await Profile.findOne({ user: req.user.id });
@@ -107,5 +107,20 @@ router.post(
     }
   }
 );
+
+// @route       GET api/profile
+// @des         Get all profiles
+// @accress     Public
+
+router.get('/', async (req, res) => {
+  try {
+    const profiles = await Profile.find().populate('User', ['name', 'avatar']);
+    console.log(await Profile.find().populate('User', ['name', 'avatar']));
+    res.json(profiles);
+  } catch (err) {
+    res.status(500).send('Server Error');
+    console.log(err.message);
+  }
+});
 
 module.exports = router;

@@ -131,4 +131,4 @@ AddEduaction.propTypes = {
   addEducation: PropTypes.func.isRequired
 };
 
-export default connect(null, { addEducation })(AddEduaction);
+export default connect(null, { addEducation })(withRouter(AddEduaction));

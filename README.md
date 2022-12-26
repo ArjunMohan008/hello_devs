@@ -1,3 +1,5 @@
-# hello_devs
+# HelloDevs
 
-[To see the demo] (https://infinite-brushlands-53863.herokuapp.com/)
+Profossional light-wight social media/blog app. (using MERN stack)
+
+[Demo](https://hellodevs.onrender.com/)
